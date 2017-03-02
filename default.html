@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ImprintJs</title>
+  <style type="text/css">
+    body { text-align: center; font-family: sans-serif; font-size: 14px; line-height: 20px; padding: 40px; color: #666; }
+    h1 { color: #1abc9c; font-size: 50px; }
+  </style>
+</head>
+<body>
+
+  <h1>Imprint JS</h1>
+  <p>Browser fingerprint<br /><strong id="browserFingerprint"></strong></p>
+  <p>Device fingerprint<br /><strong id="deviceFingerprint"></strong></p>
+
+  <script type="text/javascript" src="dist/imprint.min.js"></script>
+  <script type="text/javascript">
+    
+    var imprint = new ImprintJs();
+
+    var browserTests = [
+        "audio",
+        "availableScreenResolution",
+        "canvas",
+        "colorDepth",
+        "cookies",
+        "cpuClass",
+        "deviceDpi",
+        "doNotTrack",
+        "indexedDb",
+        "installedFonts",
+        "language",
+        "localIp",
+        "localStorage",
+        "pixelRatio",
+        "platform",
+        "plugins",
+        "processorCores",
+        "screenResolution",
+        "sessionStorage",
+        "timezoneOffset",
+        "touchSupport",
+        "userAgent",
+        "webGl"
+      ];
+
+    imprint.getImprint(browserTests).then(function(val){
+      document.getElementById("browserFingerprint").innerHTML = val;
+    });
+
+    var deviceTests = [
+        "audio",
+        "availableScreenResolution",
+        "colorDepth",
+        "cpuClass",
+        "deviceDpi",
+        "localIp",
+        "platform",
+        "processorCores",
+        "screenResolution",
+        "timezoneOffset"
+      ];
+
+    imprint.getImprint(deviceTests).then(function(val){
+      document.getElementById("deviceFingerprint").innerHTML = val;
+    });
+
+  </script>
+
+</body>
+</html>
