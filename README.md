@@ -80,7 +80,7 @@ If you'd like to add your own custom test, you can register a new test like so
 		});
 	});
 
-All tests must have an alias, and a factory method that creates a javascript Promise that performs the actual test. We uses promises to allow for async tests. On completion, the promise should always resolve. If a value cannot be determined, simply resolve with an empty string.
+All tests must have an alias, and a factory method that creates a javascript Promise that performs the actual test. We use promises to allow for async tests. On completion, the promise should always resolve. If a value cannot be determined, simply resolve with an empty string.
 
 ## Acknowledgement
 ImprintJS is based heavily on code from a number of libraries, namely
