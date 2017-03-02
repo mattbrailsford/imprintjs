@@ -84,7 +84,7 @@ All tests must have an alias, and a factory method that creates a javascript Pro
 
 ## Acknowledgement
 ImprintJS is based heavily on code from a number of libraries, namely
-* [FingerprintJss](https://github.com/Valve/fingerprintjs2)
+* [FingerprintJs2](https://github.com/Valve/fingerprintjs2)
 * [ClientJs](https://github.com/jackspirou/clientjs)
 * [Cross browser fingerprinting](https://github.com/Song-Li/cross_browser)
 
