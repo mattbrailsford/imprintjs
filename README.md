@@ -1,6 +1,8 @@
 # ImprintJS
 A javascript library for generating browser fingerprints.
 
+[Demo](https://mattbrailsford.github.io/imprintjs/default.html)
+
 ## Installation
 Simply include `imprint.min.js` in your HTML page. It has no other dependencies.
 
