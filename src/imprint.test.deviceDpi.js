@@ -4,7 +4,7 @@
 
 	ImprintJs.registerTest("deviceDpi", function(){
 		return new Promise(function(resolve) {
-			return resolve(screen.deviceXDPI + "x" + screen.deviceYDPI);
+			return resolve((screen.deviceXDPI || 0) + "x" + (screen.deviceYDPI || 0));
 		});
 	});
 
