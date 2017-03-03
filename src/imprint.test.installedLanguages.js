@@ -59,14 +59,14 @@ sort of box
 				this.div.style.display = "inline-block";
 				for (j = 0, len1 = code.length; j < len1; j++) {
 					c = code[j];
-					this.div.innerHTML = "<span style = 'font-family:" + this.fontFace + "; font-size:" + this.fontSize + "px;'>&#" + c + "</font>";
+					this.div.innerHTML = "<span style = 'font-family:" + this.fontFace + "; font-size:" + this.fontSize + "px;'>&#" + c + "</span>";
 					this.height.push(document.getElementById(round).clientHeight);
 					this.width.push(document.getElementById(round).clientWidth);
 				}
 				this.div.innerHTML = "";
 				for (k = 0, len2 = code.length; k < len2; k++) {
 					c = code[k];
-					this.div.innerHTML += "<span style = 'font-family:" + this.fontFace + "; font-size:" + this.fontSize + "px;'>&#" + c + "</font>";
+					this.div.innerHTML += "<span style = 'font-family:" + this.fontFace + "; font-size:" + this.fontSize + "px;'>&#" + c + "</span>";
 				}
 				this.test_div.innerHTML += this.height + ";" + this.width + "<br>";
 				this.heights.push(this.height);
