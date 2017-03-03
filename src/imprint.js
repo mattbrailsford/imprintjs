@@ -209,6 +209,7 @@
 					throw "No test registered with the alias " + x;
 				return _tests[x]();
 			})).then(function(values){
+				//console.log(values);
 				return self._x64hash128(values.join(""));
 			})
 		}

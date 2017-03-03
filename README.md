@@ -55,6 +55,7 @@ Out of the box, ImprintJS comes with the following tests
 * doNotTrack
 * indexedDb
 * installedFonts
+* installedLanguages
 * language
 * localIp
 * localStorage
