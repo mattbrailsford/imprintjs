@@ -3,7 +3,7 @@
 	'use strict';
 
 	ImprintJs.registerTest("canvas", function(){
-		new Promise(function(resolve) {
+		return new Promise(function(resolve) {
 
 			var result = [];
 
@@ -63,7 +63,7 @@
 			ctx.fill("evenodd");
 
 			result.push("canvas fp:" + canvas.toDataURL());
-
+			
 			return resolve(result.join("~"));
 		});
 	});
