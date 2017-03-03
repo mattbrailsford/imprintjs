@@ -1,4 +1,10 @@
-// https://github.com/Song-Li/cross_browser/blob/master/client/fingerprint/js/audio.js
+/*
+ * Original Source: https://github.com/Song-Li/cross_browser/blob/master/client/fingerprint/js/audio.js
+ * Copyright: Yinzhi Cao, Song Li, Erik Wijmans
+ * License: GNU v3
+ * Changes:
+ *  - Wrapped in an ImprintJs promise
+ */
 
 (function(scope){
 

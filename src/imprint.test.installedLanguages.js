@@ -1,18 +1,27 @@
-// https://github.com/Song-Li/cross_browser/blob/master/client/fingerprint/js/languageDetector.js
-
 /*
-This test renders to a canvas a whole bunch of words in 36 different
-alphabets to test which alphabets the user has installed on their computer.
-The words are kept in the 2D array called codes in their UTF-16 format
-to ensure that they aren't interpreted before it is time to render them
-The 37th string in codes is a single character that we are hoping will
-always show up as a cannot be displayed character.
- *
-While wether the alphabet can be displayed or not is deteremined by the
-operating system, the symbol used to represent cannot be displayed is
-deteremined by the browser.  However, it does seem like it is always some
-sort of box
+ * Original Source: https://github.com/Song-Li/cross_browser/blob/master/client/fingerprint/js/languageDetector.js
+ * Copyright: Yinzhi Cao, Song Li, Erik Wijmans
+ * License: GNU v3
+ * Changes:
+ *  - Icreased font size
+ *  - Use span + inline styles for measurement div
+ *  - Inserted comments
+ *  - Wrapped in an ImprintJs promise
  */
+
+/* 
+	This test renders to a canvas a whole bunch of words in 36 different
+	alphabets to test which alphabets the user has installed on their computer.
+	The words are kept in the 2D array called codes in their UTF-16 format
+	to ensure that they aren't interpreted before it is time to render them
+	The 37th string in codes is a single character that we are hoping will
+	always show up as a cannot be displayed character.
+
+	While wether the alphabet can be displayed or not is deteremined by the
+	operating system, the symbol used to represent cannot be displayed is
+	deteremined by the browser.  However, it does seem like it is always some
+	sort of box
+*/
 
 (function(scope){
 

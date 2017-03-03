@@ -1,3 +1,11 @@
+/*
+ * Original Source: https://github.com/Valve/fingerprintjs2/blob/master/fingerprint2.js
+ * Copyright: Valentin Vasilyev (valentin.vasilyev@outlook.com)
+ * License: MIT
+ * Changes:
+ *  - Wrapped in an ImprintJs promise
+ */
+
 (function(scope){
 
 	'use strict';
