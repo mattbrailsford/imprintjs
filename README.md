@@ -1,3 +1,5 @@
+<img src="assets/imprintjs.png" style="margin-bottom: 20px" alt="ImprintJS Logo" title="ImprintJS">
+
 # ImprintJS
 A javascript library for generating browser fingerprints.
 
@@ -91,3 +93,4 @@ ImprintJS is based heavily on code from a number of libraries, namely
 * [ClientJs](https://github.com/jackspirou/clientjs)
 * [Cross browser fingerprinting](https://github.com/Song-Li/cross_browser)
 
+ImprintJS logo modified from fingerprint icon by Lloyd Humphreys from the Noun Project
