@@ -57,7 +57,7 @@ Out of the box, ImprintJS comes with the following tests
 * doNotTrack
 * indexedDb
 * installedFonts
-* installedLanguages
+* installedLanguages [buggy]
 * language
 * localIp
 * localStorage
@@ -65,7 +65,7 @@ Out of the box, ImprintJS comes with the following tests
 * platform
 * plugins
 * processorCores
-* publicIp
+* publicIp [external request]
 * screenResolution
 * sessionstorage
 * timezoneOffset
