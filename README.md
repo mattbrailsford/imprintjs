@@ -1,6 +1,5 @@
-<img height="150"  src="assets/logo.png" style="margin-bottom: 20px;" alt="ImprintJS Logo" title="ImprintJS">
+<img src="assets/logo.png" style="margin-bottom: 20px;" alt="ImprintJS Logo" title="ImprintJS">
 
-# ImprintJS
 A javascript library for generating browser fingerprints.
 
 [Demo](https://mattbrailsford.github.io/imprintjs/default.html)
