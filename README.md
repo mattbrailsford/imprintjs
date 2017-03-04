@@ -68,7 +68,7 @@ Out of the box, ImprintJS comes with the following tests
 * processorCores
 * publicIp [external request]
 * screenResolution
-* sessionstorage
+* sessionStorage
 * timezoneOffset
 * touchSupport
 * userAgent
