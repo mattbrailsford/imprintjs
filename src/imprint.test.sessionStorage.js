@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("sessionStorage", function(){
+	imprint.registerTest("sessionStorage", function(){
 		return new Promise(function(resolve) {
 			try 
 			{

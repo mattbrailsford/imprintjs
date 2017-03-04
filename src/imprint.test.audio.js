@@ -10,7 +10,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("audio", function(){
+	imprint.registerTest("audio", function(){
 		return new Promise(function(resolve) {
 			try 
 			{

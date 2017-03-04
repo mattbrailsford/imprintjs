@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("screenResolution", function(){
+	imprint.registerTest("screenResolution", function(){
 		return new Promise(function(resolve) {
 			var val = (screen.height > screen.width) 
 				? [screen.height, screen.width] 

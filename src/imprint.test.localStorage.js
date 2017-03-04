@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("localStorage", function(){
+	imprint.registerTest("localStorage", function(){
 		return new Promise(function(resolve) {
 			try 
 			{

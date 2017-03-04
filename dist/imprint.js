@@ -35,15 +35,11 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 	// Test holder
 	var _tests = {};
 
-	var ImprintJs = function() {
-		return this;
-	};
+	var imprint = scope.imprint || {
 
-	ImprintJs.prototype = {
-
-		getImprint: function(sources){
+		test: function(tests){
 			var self = this;
-			return Promise.all(sources.map(function(x){
+			return Promise.all(tests.map(function(x){
 				if (!_tests.hasOwnProperty(x))
 					throw "No test registered with the alias " + x;
 				return _tests[x]();
@@ -51,22 +47,22 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 				//console.log(values);
 				return murmurHash3.x86.hash128(values.join(""));
 			})
+		},
+
+		registerTest: function(alias, test)
+		{
+			// Add test factory to tests collection
+			_tests[alias] = test;
 		}
 
 	}
 
-	ImprintJs.registerTest = function(alias, test)
-	{
-		// Add test factory to tests collection
-		_tests[alias] = test;
-	}
-
-	// Export the ImprintJs class
+	// Export the imprint class
 	if (typeof module === 'object' && typeof exports !== "undefined") {
-		module.exports = ImprintJs;
+		module.exports = imprintJs;
 	}
 
-	scope.ImprintJs = ImprintJs;
+	scope.imprint = imprint;
 
 })(window);
 
@@ -75,7 +71,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("adBlocker", function(){
+	imprint.registerTest("adBlocker", function(){
 		return new Promise(function(resolve) {
       var adsbox = document.createElement('div');
       adsbox.innerHTML = '&nbsp;';
@@ -113,7 +109,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("audio", function(){
+	imprint.registerTest("audio", function(){
 		return new Promise(function(resolve) {
 			try 
 			{
@@ -138,7 +134,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("availableScreenResolution", function(){
+	imprint.registerTest("availableScreenResolution", function(){
 		return new Promise(function(resolve) {
 			var val = (screen.availHeight > screen.availWidth) 
 				? [screen.availHeight, screen.availWidth] 
@@ -161,7 +157,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("canvas", function(){
+	imprint.registerTest("canvas", function(){
 		return new Promise(function(resolve) {
 
 			var result = [];
@@ -232,7 +228,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("colorDepth", function(){
+	imprint.registerTest("colorDepth", function(){
 		return new Promise(function(resolve) {
 			return resolve(screen.colorDepth || "");
 		});
@@ -243,7 +239,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("cookies", function(){
+	imprint.registerTest("cookies", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.cookieEnabled);
 		});
@@ -254,7 +250,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("cpuClass", function(){
+	imprint.registerTest("cpuClass", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.cpuClass || "");
 		});
@@ -265,7 +261,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("deviceDpi", function(){
+	imprint.registerTest("deviceDpi", function(){
 		return new Promise(function(resolve) {
 			return resolve((screen.deviceXDPI || 0) + "x" + (screen.deviceYDPI || 0));
 		});
@@ -276,7 +272,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("doNotTrack", function(){
+	imprint.registerTest("doNotTrack", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.doNotTrack || navigator.msDoNotTrack || window.doNotTrack || "");
 		});
@@ -287,7 +283,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	'use strict';
 
-	ImprintJs.registerTest("indexedDb", function(){
+	imprint.registerTest("indexedDb", function(){
 		return new Promise(function(resolve) {
 			try
 			{
@@ -369,7 +365,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("installedFonts", function(){
+	imprint.registerTest("installedFonts", function(){
 		return new Promise(function(resolve) {
 			var fontDetective = new FontDetector();
             // Firefox doesn't like fonts ending in "bold", "heavy", "light", "transparent" or anything vaguely css related so we make sure the list doesn't contain any such fonts
@@ -537,7 +533,7 @@ var FontDetector = function() {
 
 	})();
 
-	ImprintJs.registerTest("installedLanguages", function(){
+	imprint.registerTest("installedLanguages", function(){
 		return new Promise(function(resolve) {
 			try 
 			{
@@ -556,7 +552,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("language", function(){
+	imprint.registerTest("language", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.language || navigator.userLanguage || navigator.browserLanguage || navigator.systemLanguage || "");
 		});
@@ -567,7 +563,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("localIp", function(){
+	imprint.registerTest("localIp", function(){
 		return new Promise(function(resolve) {
 			try 
 			{
@@ -600,7 +596,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("localStorage", function(){
+	imprint.registerTest("localStorage", function(){
 		return new Promise(function(resolve) {
 			try 
 			{
@@ -618,7 +614,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("pixelRatio", function(){
+	imprint.registerTest("pixelRatio", function(){
 		return new Promise(function(resolve) {
 			return resolve(window.devicePixelRatio || "");
 		});
@@ -629,7 +625,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("platform", function(){
+	imprint.registerTest("platform", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.platform || "");
 		});
@@ -648,7 +644,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("plugins", function(){
+	imprint.registerTest("plugins", function(){
 		return new Promise(function(resolve) {
 			
 			var results = [];
@@ -714,7 +710,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("processorCores", function(){
+	imprint.registerTest("processorCores", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.hardwareConcurrency);
 		});
@@ -726,7 +722,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("publicIp", function(){
+	imprint.registerTest("publicIp", function(){
 		return new Promise(function(resolve) {
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.onreadystatechange = function() { 
@@ -743,7 +739,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("screenResolution", function(){
+	imprint.registerTest("screenResolution", function(){
 		return new Promise(function(resolve) {
 			var val = (screen.height > screen.width) 
 				? [screen.height, screen.width] 
@@ -758,7 +754,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("sessionStorage", function(){
+	imprint.registerTest("sessionStorage", function(){
 		return new Promise(function(resolve) {
 			try 
 			{
@@ -776,7 +772,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("timezoneOffset", function(){
+	imprint.registerTest("timezoneOffset", function(){
 		return new Promise(function(resolve) {
 			return resolve(new Date().getTimezoneOffset());
 		});
@@ -787,7 +783,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("touchSupport", function(){
+	imprint.registerTest("touchSupport", function(){
 		return new Promise(function(resolve) {
 			
 			var maxTouchPoints = 0;
@@ -824,7 +820,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("userAgent", function(){
+	imprint.registerTest("userAgent", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.userAgent);
 		});
@@ -843,7 +839,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("webGl", function(){
+	imprint.registerTest("webGl", function(){
 		return new Promise(function(resolve) {
 			try 
 			{

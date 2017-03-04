@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("platform", function(){
+	imprint.registerTest("platform", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.platform || "");
 		});

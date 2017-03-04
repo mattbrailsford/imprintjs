@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("indexedDb", function(){
+	imprint.registerTest("indexedDb", function(){
 		return new Promise(function(resolve) {
 			try
 			{

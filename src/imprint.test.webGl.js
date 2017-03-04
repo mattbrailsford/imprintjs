@@ -10,7 +10,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("webGl", function(){
+	imprint.registerTest("webGl", function(){
 		return new Promise(function(resolve) {
 			try 
 			{

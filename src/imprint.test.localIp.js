@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("localIp", function(){
+	imprint.registerTest("localIp", function(){
 		return new Promise(function(resolve) {
 			try 
 			{

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("processorCores", function(){
+	imprint.registerTest("processorCores", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.hardwareConcurrency);
 		});

@@ -40,8 +40,8 @@ To create a fingerprint, instantiate a new instance of the `ImprintJs` class and
             "webGl"
         ];
     
-        new ImprintJs().getImprint(browserTests).then(function(val){
-          console.log(val);
+        imprint.test(browserTests).then(function(result){
+          console.log(result);
         });
 
     </script>
@@ -77,7 +77,7 @@ Out of the box, ImprintJS comes with the following tests
 ### Custom Tests
 If you'd like to add your own custom test, you can register a new test like so
 
-    ImprintJs.registerTest("testAlias", function(){
+    imprint.registerTest("testAlias", function(){
 		return new Promise(function(resolve) {
 		    var value = ""; // Some code to perform a test
 			return resolve(value);

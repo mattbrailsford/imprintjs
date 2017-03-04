@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("touchSupport", function(){
+	imprint.registerTest("touchSupport", function(){
 		return new Promise(function(resolve) {
 			
 			var maxTouchPoints = 0;

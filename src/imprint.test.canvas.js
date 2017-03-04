@@ -10,7 +10,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("canvas", function(){
+	imprint.registerTest("canvas", function(){
 		return new Promise(function(resolve) {
 
 			var result = [];

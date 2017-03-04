@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("cookies", function(){
+	imprint.registerTest("cookies", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.cookieEnabled);
 		});

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("adBlocker", function(){
+	imprint.registerTest("adBlocker", function(){
 		return new Promise(function(resolve) {
       var adsbox = document.createElement('div');
       adsbox.innerHTML = '&nbsp;';

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("publicIp", function(){
+	imprint.registerTest("publicIp", function(){
 		return new Promise(function(resolve) {
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.onreadystatechange = function() { 

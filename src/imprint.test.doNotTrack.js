@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("doNotTrack", function(){
+	imprint.registerTest("doNotTrack", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.doNotTrack || navigator.msDoNotTrack || window.doNotTrack || "");
 		});

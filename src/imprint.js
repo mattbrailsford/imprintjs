@@ -35,15 +35,11 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 	// Test holder
 	var _tests = {};
 
-	var ImprintJs = function() {
-		return this;
-	};
+	var imprint = scope.imprint || {
 
-	ImprintJs.prototype = {
-
-		getImprint: function(sources){
+		test: function(tests){
 			var self = this;
-			return Promise.all(sources.map(function(x){
+			return Promise.all(tests.map(function(x){
 				if (!_tests.hasOwnProperty(x))
 					throw "No test registered with the alias " + x;
 				return _tests[x]();
@@ -51,22 +47,22 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 				//console.log(values);
 				return murmurHash3.x86.hash128(values.join(""));
 			})
+		},
+
+		registerTest: function(alias, test)
+		{
+			// Add test factory to tests collection
+			_tests[alias] = test;
 		}
 
 	}
 
-	ImprintJs.registerTest = function(alias, test)
-	{
-		// Add test factory to tests collection
-		_tests[alias] = test;
-	}
-
-	// Export the ImprintJs class
+	// Export the imprint class
 	if (typeof module === 'object' && typeof exports !== "undefined") {
-		module.exports = ImprintJs;
+		module.exports = imprintJs;
 	}
 
-	scope.ImprintJs = ImprintJs;
+	scope.imprint = imprint;
 
 })(window);
 

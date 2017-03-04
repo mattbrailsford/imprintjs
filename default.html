@@ -29,8 +29,6 @@
 
   <script type="text/javascript" src="dist/imprint.min.js"></script>
   <script type="text/javascript">
-    
-    var imprint = new ImprintJs();
 
     var browserTests = [
         "audio",
@@ -60,9 +58,9 @@
       ];
 
     console.time('getImprint 1');
-    imprint.getImprint(browserTests).then(function(val){
+    imprint.test(browserTests).then(function(result){
       console.timeEnd('getImprint 1');
-      document.getElementById("browserFingerprint").innerHTML = val;
+      document.getElementById("browserFingerprint").innerHTML = result;
     });
 
     var deviceTests = [
@@ -80,9 +78,9 @@
       ];
 
     console.time('getImprint 2');
-    imprint.getImprint(deviceTests).then(function(val){
+    imprint.test(deviceTests).then(function(result){
       console.timeEnd('getImprint 2');
-      document.getElementById("deviceFingerprint").innerHTML = val;
+      document.getElementById("deviceFingerprint").innerHTML = result;
     });
 
   </script>

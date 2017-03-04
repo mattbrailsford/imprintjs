@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("userAgent", function(){
+	imprint.registerTest("userAgent", function(){
 		return new Promise(function(resolve) {
 			return resolve(navigator.userAgent);
 		});

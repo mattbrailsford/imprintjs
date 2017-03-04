@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("pixelRatio", function(){
+	imprint.registerTest("pixelRatio", function(){
 		return new Promise(function(resolve) {
 			return resolve(window.devicePixelRatio || "");
 		});

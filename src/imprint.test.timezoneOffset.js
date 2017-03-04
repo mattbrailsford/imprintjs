@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	ImprintJs.registerTest("timezoneOffset", function(){
+	imprint.registerTest("timezoneOffset", function(){
 		return new Promise(function(resolve) {
 			return resolve(new Date().getTimezoneOffset());
 		});

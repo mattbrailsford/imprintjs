@@ -66,7 +66,7 @@ var FontDetector = function() {
 
 	'use strict';
 
-	ImprintJs.registerTest("installedFonts", function(){
+	imprint.registerTest("installedFonts", function(){
 		return new Promise(function(resolve) {
 			var fontDetective = new FontDetector();
             // Firefox doesn't like fonts ending in "bold", "heavy", "light", "transparent" or anything vaguely css related so we make sure the list doesn't contain any such fonts

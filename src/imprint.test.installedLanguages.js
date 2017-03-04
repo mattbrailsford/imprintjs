@@ -144,7 +144,7 @@
 
 	})();
 
-	ImprintJs.registerTest("installedLanguages", function(){
+	imprint.registerTest("installedLanguages", function(){
 		return new Promise(function(resolve) {
 			try 
 			{
