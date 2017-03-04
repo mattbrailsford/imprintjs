@@ -865,7 +865,7 @@ var FontDetector = function() {
 				}
 			}
 
-			return resolve(results.join("~"));
+			return resolve(results.sort().join("~"));
 
 		});
 	});
