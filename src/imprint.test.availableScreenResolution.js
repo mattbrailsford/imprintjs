@@ -4,7 +4,10 @@
 
 	ImprintJs.registerTest("availableScreenResolution", function(){
 		return new Promise(function(resolve) {
-			return resolve(screen.availWidth + "x" + screen.availHeight);
+			var val = (screen.availHeight > screen.availWidth) 
+				? [screen.availHeight, screen.availWidth] 
+				: [screen.availWidth, screen.availHeight];
+			return resolve(val.join("x"));
 		});
 	});
 
