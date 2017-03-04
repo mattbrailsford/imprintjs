@@ -45,7 +45,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 				return _tests[x]();
 			})).then(function(values){
 				//console.log(values);
-				return murmurHash3.x86.hash128(values.join(""));
+				return murmurHash3.x86.hash128(values.join("~"));
 			})
 		},
 
