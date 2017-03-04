@@ -92,4 +92,4 @@ ImprintJS is based heavily on code from a number of libraries, namely
 * [ClientJs](https://github.com/jackspirou/clientjs)
 * [Cross browser fingerprinting](https://github.com/Song-Li/cross_browser)
 
-ImprintJS logo modified from fingerprint icon by Lloyd Humphreys from the Noun Project
+ImprintJS logo modified from fingerprint icon by [Lloyd Humphreys from the Noun Project](https://thenounproject.com/Lloyd/)
