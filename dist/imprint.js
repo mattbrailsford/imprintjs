@@ -232,6 +232,36 @@
 })(window);
 
 
+(function(scope){
+
+	'use strict';
+
+	ImprintJs.registerTest("adBlocker", function(){
+		return new Promise(function(resolve) {
+      var adsbox = document.createElement('div');
+      adsbox.innerHTML = '&nbsp;';
+      adsbox.className = 'adsbox';
+      adsbox.style.display = 'block';
+      adsbox.style.position = 'absolute';
+      adsbox.style.top = '0px';
+      adsbox.style.left = '-9999px';
+      try
+      { 
+        // body may not exist, that's why we need try/catch
+        document.body.appendChild(adsbox);
+        window.setTimeout(function() {
+          var result = adsbox.offsetHeight === 0;
+          document.body.removeChild(adsbox);
+          return resolve(result);
+        }, 10);
+      } catch (e) {
+        return resolve(false);
+      }
+		});
+	});
+
+})(window);
+
 /*
  * Original Source: https://github.com/Song-Li/cross_browser/blob/master/client/fingerprint/js/audio.js
  * Copyright: Yinzhi Cao, Song Li, Erik Wijmans
@@ -271,11 +301,15 @@
 
 	ImprintJs.registerTest("availableScreenResolution", function(){
 		return new Promise(function(resolve) {
-			return resolve(screen.availWidth + "x" + screen.availHeight);
+			var val = (screen.availHeight > screen.availWidth) 
+				? [screen.availHeight, screen.availWidth] 
+				: [screen.availWidth, screen.availHeight];
+			return resolve(val.join("x"));
 		});
 	});
 
 })(window);
+
 /*
  * Original Source: https://github.com/Valve/fingerprintjs2/blob/master/fingerprint2.js
  * Copyright: Valentin Vasilyev (valentin.vasilyev@outlook.com)
@@ -478,38 +512,14 @@ var FontDetector = function() {
     }
 
     function detect(font) {
-        var hd, css, style, detected = true, fontName = font;
-
-        // Check for reserved words in font name
-        var containsReservedWords = /(bold|black|light|heavy|medium|transparent|[0-9]+)$/ig.test(font);
-        if (containsReservedWords) 
-        {
-            // There is a bug in firefox with font names containing reserved words so we
-            // declare a custon font face instead
-            fontName = "f-d-1";
-            hd = document.head || document.getElementsByTagName('head')[0];
-            css = "@font-face {font-family: '"+ fontName +"';src: local('"+ font +"');}";
-            style = document.createElement('style');
-            if (style.styleSheet) {
-                style.styleSheet.cssText = css;
-            } else {
-                style.appendChild(document.createTextNode(css));
-            }
-            hd.appendChild(style);
-        }
-
+        var detected = true;
         for (var index in baseFonts) {
-            s.style.fontFamily = fontName + ',' + baseFonts[index]; // name of the font along with the base font for fallback.
+            s.style.fontFamily = font + ',' + baseFonts[index]; // name of the font along with the base font for fallback.
             h.appendChild(s);
             var matched = (s.offsetWidth != defaultWidth[baseFonts[index]] || s.offsetHeight != defaultHeight[baseFonts[index]]);
             h.removeChild(s);
             detected = detected && matched;
         }
-
-        if (containsReservedWords) {
-            hd.removeChild(style);
-        }
-
         return detected;
     }
 
@@ -523,7 +533,10 @@ var FontDetector = function() {
 	ImprintJs.registerTest("installedFonts", function(){
 		return new Promise(function(resolve) {
 			var fontDetective = new FontDetector();
-			var fontArray = ["Abadi MT Condensed Light", "Adobe Fangsong Std", "Adobe Hebrew", "Adobe Ming Std", "Agency FB", "Aharoni", "Andalus", "Angsana New", "AngsanaUPC", "Aparajita", "Arab", "Arabic Transparent", "Arabic Typesetting", "Arial Baltic", "Arial Black", "Arial CE", "Arial CYR", "Arial Greek", "Arial TUR", "Arial", "Batang", "BatangChe", "Bauhaus 93", "Bell MT", "Bitstream Vera Serif", "Bodoni MT", "Bookman Old Style", "Braggadocio", "Broadway", "Browallia New", "BrowalliaUPC", "Calibri Light", "Calibri", "Californian FB", "Cambria Math", "Cambria", "Candara", "Castellar", "Casual", "Centaur", "Century Gothic", "Chalkduster", "Colonna MT", "Comic Sans MS", "Constantia", "Copperplate Gothic Light", "Corbel", "Cordia New", "CordiaUPC", "Courier New Baltic", "Courier New CE", "Courier New CYR", "Courier New Greek", "Courier New TUR", "DFKai-SB", "DaunPenh", "David", "DejaVu LGC Sans Mono", "Desdemona", "DilleniaUPC", "DokChampa", "Dotum", "DotumChe", "Ebrima", "Engravers MT", "Eras Bold ITC", "Estrangelo Edessa", "EucrosiaUPC", "Euphemia", "Eurostile", "FangSong", "Forte", "FrankRuehl", "Franklin Gothic Heavy", "Franklin Gothic Medium", "FreesiaUPC", "French Script MT", "Gabriola", "Gautami", "Georgia", "Gigi", "Gisha", "Goudy Old Style", "Gulim", "GulimChe", "GungSeo", "Gungsuh", "GungsuhChe", "Haettenschweiler", "Harrington", "Hei S", "HeiT", "Heisei Kaku Gothic", "Hiragino Sans GB", "Impact", "Informal Roman", "IrisUPC", "Iskoola Pota", "JasmineUPC", "KacstOne", "KaiTi", "Kalinga", "Kartika", "Khmer UI", "Kino MT", "KodchiangUPC", "Kokila", "Kozuka Gothic Pr6N", "Lao UI", "Latha", "Leelawadee", "Levenim MT", "LilyUPC", "Lohit Gujarati", "Loma", "Lucida Bright", "Lucida Console", "Lucida Fax", "Lucida Sans Unicode", "MS Gothic", "MS Mincho", "MS PGothic", "MS PMincho", "MS Reference Sans Serif", "MS UI Gothic", "MV Boli", "Magneto", "Malgun Gothic", "Mangal", "Marlett", "Matura MT Script Capitals", "Meiryo UI", "Meiryo", "Menlo", "Microsoft Himalaya", "Microsoft JhengHei", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Sans Serif", "Microsoft Tai Le", "Microsoft Uighur", "Microsoft YaHei", "Microsoft Yi Baiti", "MingLiU", "MingLiU-ExtB", "MingLiU_HKSCS", "MingLiU_HKSCS-ExtB", "Miriam Fixed", "Miriam", "Mongolian Baiti", "MoolBoran", "NSimSun", "Narkisim", "News Gothic MT", "Niagara Solid", "Nyala", "PMingLiU", "PMingLiU-ExtB", "Palace Script MT", "Palatino Linotype", "Papyrus", "Perpetua", "Plantagenet Cherokee", "Playbill", "Prelude Bold", "Prelude Condensed Bold", "Prelude Condensed Medium", "Prelude Medium", "PreludeCompressedWGL Black", "PreludeCompressedWGL Bold", "PreludeCompressedWGL Light", "PreludeCompressedWGL Medium", "PreludeCondensedWGL Black", "PreludeCondensedWGL Bold", "PreludeCondensedWGL Light", "PreludeCondensedWGL Medium", "PreludeWGL Black", "PreludeWGL Bold", "PreludeWGL Light", "PreludeWGL Medium", "Raavi", "Rachana", "Rockwell", "Rod", "Sakkal Majalla", "Sawasdee", "Segoe Print", "Segoe Script", "Segoe UI Light", "Segoe UI Semibold", "Segoe UI Symbol", "Segoe UI", "Shonar Bangla", "Showcard Gothic", "Shruti", "SimHei", "SimSun", "SimSun-ExtB", "Simplified Arabic Fixed", "Simplified Arabic", "Snap ITC", "Sylfaen", "Symbol", "Tahoma", "Times New Roman Baltic", "Times New Roman CE", "Times New Roman CYR", "Times New Roman Greek", "Times New Roman TUR", "Times New Roman", "TlwgMono", "Traditional Arabic", "Trebuchet MS", "Tunga", "Ubuntu", "Umpush", "Univers", "Utopia", "Utsaah", "Vani", "Verdana", "Vijaya", "Vladimir Script", "Vrinda", "Webdings", "Wide Latin"];
+            // Firefox doesn't like fonts ending in "bold", "heavy", "light", "transparent" or anything vaguely css related so we make sure the list doesn't contain any such fonts
+            var fontArray = ["ADOBE CASLON PRO","ADOBE GARAMOND PRO","AVENIR","Adobe Fangsong Std","Adobe Ming Std","Agency FB","Aharoni","Amazone BT","AngsanaUPC","Antique Olive","Apple Chancery","Apple Color Emoji","Apple SD Gothic Neo","Arab","Arial Baltic","Arial CE","Arial CYR","Arial Greek","Arial MT","Arial Unicode MS","Arrus BT","AvantGarde Bk BT","AvantGarde Md BT","Ayuthaya","Baskerville Old Face","Bell MT","Benguiat Bk BT","Berlin Sans FB","BernhardFashion BT","BernhardMod BT","Big Caslon","Bitstream Vera Sans Mono","Bitstream Vera Serif","BlairMdITC TT","Bodoni 72 Smallcaps","Bodoni MT Poster Compressed","Boulder","Bradley Hand","Broadway","Browallia New","BrowalliaUPC","Calisto MT","Cambria Math","Centaur","Chalkboard","Chalkboard SE","Chalkduster","Charter BT","ChelthmITC Bk BT","Chiller","Comic Sans MS","Constantia","Copperplate","Corbel","Cordia New","CordiaUPC","Coronet","Courier New Baltic","Courier New CE","Courier New CYR","Courier New TUR","Cuckoo","DFKai-SB","DaunPenh","Dauphin","David","DejaVu LGC Sans Mono","Denmark","Desdemona","DokChampa","Dotum","Ebrima","Edwardian Script ITC","Eras Bold ITC","EucrosiaUPC","Euphemia","Eurostile","FRUTIGER","FangSong","Felix Titling","Forte","Fransiscan","FreesiaUPC","French Script MT","FrnkGothITC Bk BT","Fruitger","Futura Bk BT","Futura Md BT","Futura ZBlk BT","FuturaBlack BT","Galliard BT","Garamond","Gautami","Geeza Pro","Geneva","GeoSlab 703 Lt BT","Geometr231 BT","Geometr231 Hv BT","Gigi","Gill Sans","GoudyOLSt BT","GulimChe","GungSeo","Gurmukhi MN","Harlow Solid Italic","Heather","HeiT","High Tower Text","Hiragino Kaku Gothic ProN","Hiragino Mincho ProN","Hiragino Sans GB","Hoefler Text","Humanst521 BT","Humanst521 Lt BT","Impact","Imprint MT Shadow","Incised901 BT","Incised901 Lt BT","Informal Roman","Informal011 BT","IrisUPC","Kabel Bk BT","KacstOne","KaiTi","Khmer UI","Kokila","LUCIDA GRANDE","Latha","Leelawadee","Lohit Gujarati","Long Island","Lucida Calligraphy","Lucida Console","Lucida Sans","Lucida Sans Typewriter","Lydian BT","MS Gothic","MS Mincho","MS PGothic","MS Reference Sans Serif","MS Reference Specialty","MS Serif","MUSEO","MYRIAD","Malgun Gothic","Mangal","Marigold","Market","Marlett","Meiryo","Meiryo UI","Menlo","Microsoft PhagsPa","Microsoft Uighur","MingLiU","MingLiU_HKSCS","Minion","Miriam Fixed","Mona Lisa Solid ITC TT","Monaco","Monotype Corsiva","NEVIS","News Gothic","News GothicMT","NewsGoth BT","Nyala","Old Century","Old English Text MT","Onyx","Oriya Sangam MN","PMingLiU","Palatino","Parchment","Pegasus","Perpetua","Perpetua Titling MT","Pickwick","Poster","Pristina","Raavi","Rage Italic","Rockwell","Roman","Sakkal Majalla","Savoye LET","Sawasdee","Segoe UI Symbol","Serifa BT","Serifa Th BT","Showcard Gothic","Shruti","Signboard","SimHei","SimSun","SimSun-ExtB","Simplified Arabic","Simplified Arabic Fixed","Sinhala Sangam MN","Sketch Rockwell","Socket","Stencil","Styllo","Swis721 BlkEx BT","Swiss911 XCm BT","Symbol","Synchro LET","System","TRAJAN PRO","Technical","Teletype","Tempus Sans ITC","Thonburi","Times","Times New Roman Baltic","Times New Roman CYR","Times New Roman PS","Trebuchet MS","Tubular","Tunga","Tw Cen MT","TypoUpright BT","Ubuntu","Unicorn","Utopia","Viner Hand ITC","Vivaldi","Vrinda","Westminster","Wide Latin","Zurich BlkEx BT"];
+            // Extend the fontArray to cover the following for a larger list of fonts, however it will take loger to calculate the fingerprint
+            /*"ARCHER","ARNO PRO","Academy Engraved LET","Adobe Garamond","Adobe Hebrew","Algerian","AmerType Md BT","American Typewriter","Andale Mono","Andalus","Angsana New","Aparajita","Arabic Typesetting","Arial","Arial Hebrew","Arial TUR","Aurora Cn BT","Bandy","Bangla Sangam MN","Bank Gothic","BankGothic Md BT","Baskerville","Batang","BatangChe","Bauer Bodoni","Bembo","BinnerD","Blackadder ITC","Bodoni MT","Bradley Hand ITC","Braggadocio","Bremen Bd BT","Brush Script MT","CG Omega","CG Times","Calibri","Californian FB","Calligrapher","Cambria","Candara","CaslonOpnface BT","Castellar","Casual","Century","Century Gothic","Century Schoolbook","Cezanne","Charlesworth","Chaucer","Clarendon","CloisterBlack BT","Cochin","Colonna MT","Comic Sans","CopperplGoth Bd BT","Copperplate Gothic","Cornerstone","Courier New Greek","Curlz MT","DB LCD Temp","Didot","DilleniaUPC","DotumChe","Elephant","English 111 Vivace BT","Engravers MT","EngraversGothic BT","Eras Demi ITC","Estrangelo Edessa","Euphemia UCAS","Exotc350 Bd BT","FONTIN","Fixedsys","FrankRuehl","Freefrm721 Blk BT","Futura","Futura Lt BT","GOTHAM","Gabriola","GeoSlab 703 XBd BT","Geometr231 Lt BT","Georgia","Gill Sans MT","Gisha","Goudy Stout","GoudyHandtooled BT","Gujarati Sangam MN","Gulim","Gungsuh","GungsuhChe","Haettenschweiler","Harrington","Hei S","Heisei Kaku Gothic","Heiti SC","Heiti TC","Helvetica","Helvetica Neue","Herald","Humanst 521 Cn BT","Incised901 Bd BT","Iskoola Pota","JasmineUPC","Jazz LET","Jenson","Jester","Jokerman","Juice ITC","Kailasa","Kalinga","Kannada Sangam MN","Kartika","Kaufmann BT","Kaufmann Bd BT","Kino MT","KodchiangUPC","Korinna BT","Kozuka Gothic Pr6N","Kristen ITC","Krungthep","Lao UI","Letter Gothic","Levenim MT","LilyUPC","Lithograph","Loma","Lucida Handwriting","Lucida Sans Unicode","MS LineDraw","MS Outlook","MS PMincho","MS Sans Serif","MS UI Gothic","MT Extra","MV Boli","MYRIAD PRO","Maiandra GD","Malayalam Sangam MN","Marion","Marker Felt","Matisse ITC","Matura MT Script Capitals","Microsoft Himalaya","Microsoft JhengHei","Microsoft New Tai Lue","Microsoft Sans Serif","Microsoft Tai Le","Microsoft YaHei","Microsoft Yi Baiti","MingLiU-ExtB","MingLiU_HKSCS-ExtB","Minion Pro","Miriam","Mistral","Modern","Mongolian Baiti","MoolBoran","Mrs Eaves","NSimSun","Nadeem","Narkisim","News Gothic MT","Niagara Engraved","Niagara Solid","Noteworthy","OCR A Extended","Onyx BT","OzHandicraft BT","PMingLiU-ExtB","PRINCETOWN LET","PTBarnum BT","Palace Script MT","Palatino Linotype","Papyrus","Party LET","Plantagenet Cherokee","Playbill","Poor Richard","PosterBodoni BT","Pythagoras","Rachana","Ravie","Ribbon131 Bd BT","Rod","Santa Fe LET","Sceptre","Segoe Print","Segoe UI","Serifa","ShelleyVolante BT","Sherwood","Shonar Bangla","Skia","Small Fonts","Snap ITC","Snell Roundhand","Souvenir Lt BT","Staccato222 BT","Steamer","Storybook","Subway","Sylfaen","Tahoma","Tamil Sangam MN","Telugu Sangam MN","Terminal","Times New Roman","Times New Roman CE","Times New Roman Greek","Times New Roman TUR","TlwgMono","Traditional Arabic","Trajan","Tristan","Umpush","Univers","Utsaah","Vagabond","Vani","Verdana","Vijaya","VisualUI","WHITNEY","Webdings","ZWAdobeF","ZapfEllipt BT","ZapfHumnst BT","ZapfHumnst Dm BT","Zapfino","Zurich Ex BT"];*/
 			var installedFontsArray = [];
 
 			for (var i = 0; i < fontArray.length; i++) {
@@ -532,7 +545,9 @@ var FontDetector = function() {
 				}
 			}
 
-			return resolve(installedFontsArray.join("~"));
+            //console.log(installedFontsArray.join(", "))
+			
+            return resolve(installedFontsArray.join("~"));
 		});
 	});
 
@@ -856,31 +871,18 @@ var FontDetector = function() {
 	});
 
 })(window);
-/*
- * Core Estimator
- * CPU core estimation timing attack using web workers
- * A polyfill for navigator.hardwareConcurrency
- * 2014-05-27
- * 
- * Website: https://github.com/oftn-oswg/core-estimator
- * Copyright (c) Working Group contributors
- * License: MIT
- */
-!function(a){function q(a,b,d,e){for(var f=[],g=a.length;g<b;g++)a.push(new Worker(o));r(function(g){for(var h,i=b,j=0;j<b;j++)a[j].onmessage=function(){i--,i||(d--,f.push(n.now()-h),d?g():e(f))};for(var j=0;j<b;j++)a[j].postMessage(c);h=n.now()})}function r(a){!function b(){a(b)}()}function s(a,b,c){function f(g,h){c&&c(d,e,g),a(1,function(){a(g,function(a){return a?(d=g,g+=h):(e=g,g-=h),e-d===1?b(d):h?void f(g,h>>1):b(e-1)})})}var d=1,e=1/0;!function g(h){c&&c(d,e,h),a(1,function(){a(h,function(a){if(a)d=h,g(2*h);else{if(e=h,1===d)return b(d);f(3*d/2,d/4)}})})}(2)}function t(a){var b=a.length;if(!b)return null;for(var c=1/0,d=-1/0,e=0,f=0,g=0;g<b;g++){var h=a[g];h<c&&(c=h),h>d&&(d=h),e+=h,f+=Math.pow(h,2)}var i=e/b,j=Math.pow(i,2),k=0,l=0;b>1&&(k=f/b-j,l=(f-b*j)/(b-1));var m={size:b,mean:i,uvariance:l};return m}function v(a,b){var c=Object.keys(u),d=c.reduce(function(a,c){return b<c?a:c}),e=c.reduce(function(a,c){return b>c?a:c}),f=e-d,g=w(u[d],u[e],(b-d)/f);return a<g}function w(a,b,c){return a+(b-a)*c}var b=20,c=4194304,d=navigator.hardwareConcurrency,e=document,f=(e.currentScript||e.scripts[e.scripts.length-1]).src.replace(/\/[^\/]+$/,"/");if(!d&&navigator.mimeTypes["application/x-pnacl"]){var g="http://www.w3.org/1999/xhtml",h=console.error.bind(console),i=[],j=function(a){var c,b=navigator.hardwareConcurrency=a.data;for(navigator.getHardwareConcurrency=function(a,c){a(b),c&&c.progress&&c.progress(b,b,b)};c=i.shift();)navigator.getHardwareConcurrency(c[0],c[1]);l.removeEventListener("load",k,!0),l.removeEventListener("message",j,!0),l.removeEventListener("error",h,!0),l.removeEventListener("crash",h,!0),e.documentElement.removeChild(l)},k=function(){m.postMessage(0)};navigator.getHardwareConcurrency=function(a,b){i.push([a,b])};var l=e.createElementNS(g,"div");l.addEventListener("load",k,!0),l.addEventListener("message",j,!0),l.addEventListener("error",h,!0),l.addEventListener("crash",h,!0);var m=e.createElementNS(g,"embed");return m.setAttribute("path",f+"nacl_module/pnacl/Release"),m.setAttribute("src",f+"nacl_module/pnacl/Release/cores.nmf"),m.setAttribute("type","application/x-pnacl"),l.appendChild(m),void e.documentElement.appendChild(l)}var n=a.performance||Date;n.now||(n.webkitNow?n.now=n.webkitNow:n.now=function(){return+new Date});var o=f+"workload.js",p=!1;d||(navigator.hardwareConcurrency=1,"undefined"==typeof Worker&&(d=!0)),navigator.getHardwareConcurrency=function(a,c){if(c=c||{},"use_cache"in c||(c.use_cache=!0),d||c.use_cache&&p)return void a(navigator.hardwareConcurrency);e.documentElement.style.cursor="progress";var h,f=[],i=[];s(function(a,c){q(f,a,b,function(b){if(1===a)Array.prototype.push.apply(i,b),h=t(i),c(!0);else{var d=t(b),e=d.uvariance/d.size,f=h.uvariance/h.size,g=(d.mean-h.mean)/Math.sqrt(e+f),j=Math.pow(e+f,2)/(Math.pow(d.uvariance,2)/(Math.pow(d.size,2)*(d.size-1))+Math.pow(h.uvariance,2)/(Math.pow(h.size,2)*(h.size-1)));c(v(g,j))}})},function(b){for(var c=0,d=f.length;c<d;c++)f[c].terminate();e.documentElement.style.cursor="",navigator.hardwareConcurrency=b,p=!0,a(b)},c.progress)};var u={1:63.66,2:9.925,3:5.841,4:4.604,5:4.032,6:3.707,7:3.499,8:3.355,9:3.25,10:3.169,11:3.106,12:3.055,13:3.012,14:2.977,15:2.947,16:2.921,17:2.898,18:2.878,19:2.861,20:2.845,21:2.831,22:2.819,23:2.807,24:2.797,25:2.787,26:2.779,27:2.771,28:2.763,29:2.756,30:2.75,32:2.738,34:2.728,36:2.719,38:2.712,40:2.704,42:2.698,44:2.692,46:2.687,48:2.682,50:2.678,55:2.668,60:2.66,65:2.654,70:2.648,80:2.639,100:2.626,150:2.609,200:2.601}}(self);
-
 (function(scope){
 
 	'use strict';
 
 	ImprintJs.registerTest("processorCores", function(){
 		return new Promise(function(resolve) {
-			navigator.getHardwareConcurrency(function() {
-				return resolve(navigator.hardwareConcurrency);
-			}); 
+			return resolve(navigator.hardwareConcurrency);
 		});
 	});
 
 })(window);
+
 (function(scope){
 
 	'use strict';
@@ -904,11 +906,15 @@ var FontDetector = function() {
 
 	ImprintJs.registerTest("screenResolution", function(){
 		return new Promise(function(resolve) {
-			return resolve(screen.width + "x" + screen.height);
+			var val = (screen.height > screen.width) 
+				? [screen.height, screen.width] 
+				: [screen.width, screen.height];
+			return resolve(val.join("x"));
 		});
 	});
 
 })(window);
+
 (function(scope){
 
 	'use strict';

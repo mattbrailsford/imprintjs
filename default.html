@@ -13,21 +13,16 @@
   <p>Browser fingerprint<br /><strong id="browserFingerprint"></strong></p>
   <p>Device fingerprint<br /><strong id="deviceFingerprint"></strong></p>
 
-<!--
+  <!--
   <style>
-  	@font-face {
-		font-family: 'fdd1';
-		src: local("Goudy Old Style");
-	}
-  	.s1 {font-family: fdd1, monospace; font-size:72px;}
-  	.s2 {font-family: 'Times New Roman', Times, serif, sans-serif; font-size:72px;}
-  	.s3 {font-family: serif; font-size:72px;}
+  	.s1 {font-family: Monotype Corsiva, monospace; font-size:72px;}
+  	.s2 {font-family: Monotype Corsiva, sans-serif; font-size:72px;}
+  	.s3 {font-family: Monotype Corsiva, serif; font-size:72px;}
   </style>
   <span class="s1">mmmmmmmmmmlli</span><br />
   <span class="s2">mmmmmmmmmmlli</span><br />
   <span class="s3">mmmmmmmmmmlli</span>
--->
-
+  -->
 
   <script type="text/javascript" src="dist/imprint.min.js"></script>
   <script type="text/javascript">
@@ -45,7 +40,7 @@
         "doNotTrack",
         "indexedDb",
         "installedFonts",
-        "installedLanguages",
+        //"installedLanguages",
         "language",
         "localIp",
         "localStorage",
@@ -61,7 +56,9 @@
         "webGl"
       ];
 
+    console.time('getImprint 1');
     imprint.getImprint(browserTests).then(function(val){
+      console.timeEnd('getImprint 1');
       document.getElementById("browserFingerprint").innerHTML = val;
     });
 
@@ -79,7 +76,9 @@
         "timezoneOffset"
       ];
 
+    console.time('getImprint 2');
     imprint.getImprint(deviceTests).then(function(val){
+      console.timeEnd('getImprint 2');
       document.getElementById("deviceFingerprint").innerHTML = val;
     });
 
