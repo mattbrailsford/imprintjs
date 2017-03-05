@@ -44,7 +44,7 @@
 				];
 
 				// starting to detect plugins in IE
-				results = this.map(names, function(name) 
+				results = names.map(function(name) 
 				{
 					try 
 					{
@@ -61,12 +61,34 @@
 
 			// None IE
 			if(navigator.plugins) {
-				for (var i = 0; i < navigator.plugins.length; i++) {
-					results.push(navigator.plugins[i].name);
+
+				var plugins = [];
+
+				for(var i = 0, l = navigator.plugins.length; i < l; i++) {
+					plugins.push(navigator.plugins[i]);
 				}
+
+				// sorting plugins only for those user agents, that we know randomize the plugins
+				// every time we try to enumerate them
+				if(navigator.userAgent.match(/palemoon/i)) {
+					plugins = plugins.sort(function(a, b) {
+						if(a.name > b.name){ return 1; }
+						if(a.name < b.name){ return -1; }
+						return 0;
+					});
+				}
+
+				var t = plugins.map(function (p) {
+					var mimeTypes = [];
+					for(var i = 0; i < p.length; i++){
+						var mt = p[i];
+						mimeTypes.push([mt.type, mt.suffixes].join("~"));
+					}
+					results.push([p.name, p.description, mimeTypes.join(",")].join("::"));
+				});
 			}
 
-			return resolve(results.sort().join("~"));
+			return resolve(results.join("~"));
 
 		});
 	});
