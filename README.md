@@ -86,6 +86,10 @@ If you'd like to add your own custom test, you can register a new test like so
 
 All tests must have an alias, and a factory method that creates a javascript Promise that performs the actual test. We use promises to allow for async tests. On completion, the promise should always resolve. If a value cannot be determined, simply resolve with an empty string.
 
+## Known issues
+* Some versions of Firefox for Android report inccorrect screen.height / screen.width values as they subtract the browser chrome when they shouldnt do resulting in inconsistant screenResolution test values. No current workaround. [Issue 1120452](https://bugzilla.mozilla.org/show_bug.cgi?id=1120452)
+* Firefox for Android reports a color depth of 24 instead of 32 as they percieve the last 8 bits as being alpha and so shouldn't be concidered as part of the color depth. As a workaround, we treat all 32 bit colorDepths as 24 bit. [Issue 424386](https://bugzilla.mozilla.org/show_bug.cgi?id=424386)
+
 ## Acknowledgement
 ImprintJS is based heavily on code from a number of libraries, namely
 * [FingerprintJs2](https://github.com/Valve/fingerprintjs2)
