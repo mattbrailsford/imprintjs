@@ -58,10 +58,11 @@ Out of the box, ImprintJS comes with the following tests
 * doNotTrack
 * indexedDb
 * installedFonts
-* installedLanguages [buggy]
+* installedLanguages [experimental, inconsistent results]
 * language
 * localIp
 * localStorage
+* mediaDevices [experimental, inconsistent results]
 * pixelRatio
 * platform
 * plugins
