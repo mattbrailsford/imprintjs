@@ -230,11 +230,22 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	imprint.registerTest("colorDepth", function(){
 		return new Promise(function(resolve) {
-			return resolve(screen.colorDepth || "");
+			var cd = screen.colorDepth;
+
+			// Some browsers return 24 rather than 32 as 32 is really
+			// 24 bit color depth + 8 bits alpha, so they see the alpha
+			// as not really being "color" so report 24 instead. 
+			// For consistancy, treat all 32 color depths as 24.
+			if (cd === 32) {
+				cd = 24;
+			}
+
+			return resolve(cd || "");
 		});
 	});
 
 })(window);
+
 (function(scope){
 
 	'use strict';
@@ -614,6 +625,32 @@ var FontDetector = function() {
 
 	'use strict';
 
+	imprint.registerTest("mediaDevices", function(){
+		return new Promise(function(resolve) {
+
+			if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+			  return resolve(cd || "");
+			}
+
+			navigator.mediaDevices.enumerateDevices()
+				.then(function(devices) {
+					var results = devices.map(function(device){
+						return device.kind + ":" + device.label + " id = " + device.deviceId;
+					});
+					return resolve(results.join(","));
+				})
+				.catch(function(err) {
+					return resolve("");
+				});		
+		});
+	});
+
+})(window);
+
+(function(scope){
+
+	'use strict';
+
 	imprint.registerTest("pixelRatio", function(){
 		return new Promise(function(resolve) {
 			return resolve(window.devicePixelRatio || "");
@@ -678,7 +715,7 @@ var FontDetector = function() {
 				];
 
 				// starting to detect plugins in IE
-				results = this.map(names, function(name) 
+				results = names.map(function(name) 
 				{
 					try 
 					{
@@ -695,17 +732,40 @@ var FontDetector = function() {
 
 			// None IE
 			if(navigator.plugins) {
-				for (var i = 0; i < navigator.plugins.length; i++) {
-					results.push(navigator.plugins[i].name);
+
+				var plugins = [];
+
+				for(var i = 0, l = navigator.plugins.length; i < l; i++) {
+					plugins.push(navigator.plugins[i]);
 				}
+
+				// sorting plugins only for those user agents, that we know randomize the plugins
+				// every time we try to enumerate them
+				if(navigator.userAgent.match(/palemoon/i)) {
+					plugins = plugins.sort(function(a, b) {
+						if(a.name > b.name){ return 1; }
+						if(a.name < b.name){ return -1; }
+						return 0;
+					});
+				}
+
+				var t = plugins.map(function (p) {
+					var mimeTypes = [];
+					for(var i = 0; i < p.length; i++){
+						var mt = p[i];
+						mimeTypes.push([mt.type, mt.suffixes].join("~"));
+					}
+					results.push([p.name, p.description, mimeTypes.join(",")].join("::"));
+				});
 			}
 
-			return resolve(results.sort().join("~"));
+			return resolve(results.join("~"));
 
 		});
 	});
 
 })(window);
+
 (function(scope){
 
 	'use strict';
