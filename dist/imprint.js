@@ -59,7 +59,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	// Export the imprint class
 	if (typeof module === 'object' && typeof exports !== "undefined") {
-		module.exports = imprintJs;
+		module.exports = imprint;
 	}
 
 	scope.imprint = imprint;
