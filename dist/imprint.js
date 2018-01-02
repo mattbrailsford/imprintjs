@@ -23,7 +23,7 @@ e^=a.length;f^=a.length;h^=a.length;d=d+e+f;d+=h;e+=d;f+=d;h+=d;d=x(d);e=x(e);f=
 (a.charCodeAt(g+5)&255)<<8|(a.charCodeAt(g+6)&255)<<16|(a.charCodeAt(g+7)&255)<<24,a.charCodeAt(g)&255|(a.charCodeAt(g+1)&255)<<8|(a.charCodeAt(g+2)&255)<<16|(a.charCodeAt(g+3)&255)<<24],h=[a.charCodeAt(g+12)&255|(a.charCodeAt(g+13)&255)<<8|(a.charCodeAt(g+14)&255)<<16|(a.charCodeAt(g+15)&255)<<24,a.charCodeAt(g+8)&255|(a.charCodeAt(g+9)&255)<<8|(a.charCodeAt(g+10)&255)<<16|(a.charCodeAt(g+11)&255)<<24],f=u(f,m),f=w(f,31),f=u(f,n),d=p(d,f),d=w(d,27),d=v(d,e),d=v(u(d,[0,5]),[0,1390208809]),h=u(h,n),
 h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[0,0];h=[0,0];switch(b){case 15:h=p(h,s([0,a.charCodeAt(g+14)],48));case 14:h=p(h,s([0,a.charCodeAt(g+13)],40));case 13:h=p(h,s([0,a.charCodeAt(g+12)],32));case 12:h=p(h,s([0,a.charCodeAt(g+11)],24));case 11:h=p(h,s([0,a.charCodeAt(g+10)],16));case 10:h=p(h,s([0,a.charCodeAt(g+9)],8));case 9:h=p(h,[0,a.charCodeAt(g+8)]),h=u(h,n),h=w(h,33),h=u(h,m),e=p(e,h);case 8:f=p(f,s([0,a.charCodeAt(g+7)],56));case 7:f=p(f,s([0,a.charCodeAt(g+
 6)],48));case 6:f=p(f,s([0,a.charCodeAt(g+5)],40));case 5:f=p(f,s([0,a.charCodeAt(g+4)],32));case 4:f=p(f,s([0,a.charCodeAt(g+3)],24));case 3:f=p(f,s([0,a.charCodeAt(g+2)],16));case 2:f=p(f,s([0,a.charCodeAt(g+1)],8));case 1:f=p(f,[0,a.charCodeAt(g)]),f=u(f,m),f=w(f,31),f=u(f,n),d=p(d,f)}d=p(d,[0,a.length]);e=p(e,[0,a.length]);d=v(d,e);e=v(e,d);d=A(d);e=A(e);d=v(d,e);e=v(e,d);return("00000000"+(d[0]>>>0).toString(16)).slice(-8)+("00000000"+(d[1]>>>0).toString(16)).slice(-8)+("00000000"+(e[0]>>>0).toString(16)).slice(-8)+
-("00000000"+(e[1]>>>0).toString(16)).slice(-8)};"undefined"!==typeof exports?("undefined"!==typeof module&&module.exports&&(exports=module.exports=t),exports.murmurHash3=t):"function"===typeof define&&define.amd?define([],function(){return t}):(t._murmurHash3=y.murmurHash3,t.noConflict=function(){y.murmurHash3=t._murmurHash3;t._murmurHash3=z;t.noConflict=z;return t},y.murmurHash3=t)})(this);
+("00000000"+(e[1]>>>0).toString(16)).slice(-8)};"undefined"!==typeof exports?("undefined"!==typeof module&&module.exports&&(exports=module.exports=t),y.murmurHash3=t):"function"===typeof define&&define.amd?define([],function(){return t}):(t._murmurHash3=y.murmurHash3,t.noConflict=function(){y.murmurHash3=t._murmurHash3;t._murmurHash3=z;t.noConflict=z;return t},y.murmurHash3=t)})(this);
 
 /*
  * ImprintJs
@@ -59,7 +59,7 @@ h=w(h,33),h=u(h,m),e=p(e,h),e=w(e,31),e=v(e,d),e=v(u(e,[0,5]),[0,944331445]);f=[
 
 	// Export the imprint class
 	if (typeof module === 'object' && typeof exports !== "undefined") {
-		module.exports = imprintJs;
+		module.exports = imprint;
 	}
 
 	scope.imprint = imprint;
